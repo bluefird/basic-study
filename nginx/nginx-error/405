@@ -1,0 +1,10 @@
+405 Not Allowed?
+静态页面POST会提示405 Not Allowed错误.
+# curl -d name=neo http://www.mydoamin.com/index.html
+<html>
+<head><title>405 Not Allowed</title></head>
+<body bgcolor="white">
+<center><h1>405 Not Allowed</h1></center>
+<hr><center>nginx</center>
+</body>
+</html

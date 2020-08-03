@@ -1,0 +1,6 @@
+nginx: [warn] duplicate MIME type "text/html" in /etc/nginx/nginx.conf
+text/html 是 gzip_types 默认值，所以不要将text/html加入到gzip_types列表内
+
+127.0.0.1:8080 failed
+链接本地端口失败，已经关闭防火墙，同时使用 curl http://127.0.0.1:8080 一切正常
+关闭 selinux

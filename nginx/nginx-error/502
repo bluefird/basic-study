@@ -1,0 +1,6 @@
+502 Bad Gateway?
+
+502 Bad Gateway
+error.log 提示：
+upstream sent too big header while reading response header from upstream?
+修改fastcgi配置

@@ -1,0 +1,12 @@
+nginx: [emerg] "proxy_pass" cannot have URI part in location
+在location,if中使用证则匹配proxy_pass末尾不能写/
+	if ($request_uri ~* "^/info/{cn|tw}/{news|info}/\d\.html") {
+		proxy_pass http://info.example.com/;
+		break;
+	}
+
+    location ~ ^/info/ {
+                proxy_pass http://info.example.com/;
+                break;
+    }
+proxy_pass http://info.example.com/; 改为 proxy_pass http://info.example.com; 可以解决

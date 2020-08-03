@@ -1,0 +1,14 @@
+Nginx access.log 日志显示
+111.85.11.15 - - [25/Jun/2016:19:20:35 +0800] "GET /xxx/xxx/xxx.jsp HTTP/1.1" 499 88 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36 JianKongBao Monitor 1.1"
+配置 proxy_ignore_client_abort on;
+
+    location / {
+
+		ssi on;
+		proxy_set_header Accept-Encoding "";
+		proxy_pass http://127.0.0.1:8080;
+        proxy_set_header    Host    $host;
+        proxy_set_header    X-Real-IP   $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_ignore_client_abort  on;
+    }

@@ -1,0 +1,7 @@
+Request Entity Too Large
+上传文件大小限制
+413 Request Entity Too Large
+error.log 提示：
+client intended to send too large body
+client_max_body_size 8m;
+修改 /etc/nginx/nginx.conf 文件。

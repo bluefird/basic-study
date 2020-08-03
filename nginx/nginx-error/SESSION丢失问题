@@ -1,0 +1,2 @@
+如果用户Cookie信息没有经过 proxy_pass 传递给最终服务器，SESSION信息将丢失，解决方案
+proxy_set_header   Cookie $http_cookie;

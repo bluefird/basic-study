@@ -1,0 +1,12 @@
+[alert] 55785#0: *11449 socket() failed (24: Too many open files) while connecting to upstream
+配置 worker_rlimit_nofile 参数即可
+user  nginx;
+worker_processes  8;
+worker_rlimit_nofile 65530;
+配置 ulimit 也能达到同样效果，但我更喜欢 worker_rlimit_nofile 因为它仅仅作用于nginx,而不是全局配置。
+
+server_name 与 SSI 注意事项
+server_name www.example.com www.example.net www.example.org;
+下来SSI标签无论你使用那个域名访问，输出永远是server_name的第一域名www.example.com
+<!--#echo var="SERVER_NAME"-->
+需要通过SERVER_NAME判定展示不同结果时需要注意。
