@@ -1,0 +1,17 @@
+Context
+配置虚拟目录
+例如我们需要这样的配置
+http://www.netkiller.cn/news
+http://www.netkiller.cn/member
+http://www.netkiller.cn/product
+
+实现方法
+<Host name="localhost"  appBase="/www/example.com" unpackWARs="true" autoDeploy="true">
+	<Alias>www.example.com</Alias>
+
+	<Context path="news" docBase="www.example.com/news" reloadable="false"></Context>
+	<Context path="member" docBase="www.example.com/member" reloadable="false"></Context>
+	<Context path="product" docBase="www.example.com/product" reloadable="false"></Context>
+
+</Host>		
+

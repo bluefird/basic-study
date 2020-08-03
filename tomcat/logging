@@ -1,0 +1,6 @@
+logging.properties
+修改日志目录
+1catalina.org.apache.juli.FileHandler.level = FINE
+#1catalina.org.apache.juli.FileHandler.directory = ${catalina.base}/logs
+1catalina.org.apache.juli.FileHandler.directory = /www/logs/tomcat
+1catalina.org.apache.juli.FileHandler.prefix = catalina.

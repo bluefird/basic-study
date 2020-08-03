@@ -1,0 +1,9 @@
+2.2.1.2.1. 应用程序安全
+
+关闭war自动部署 unpackWARs="false" autoDeploy="false"。防止被植入木马等恶意程序
+
+关闭 reloadable="false" 也用于防止被植入木马
+
+JSESSIONID
+修改 Cookie 变量 JSESSIONID， 这个cookie 是用于维持Session关系。建议你改为PHPSESSID。 
+<Context path="" docBase="path/to/your" reloadable="false" sessionCookieDomain=".example.com" sessionCookiePath="/" sessionCookieName="PHPSESSID" />				

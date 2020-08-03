@@ -1,0 +1,26 @@
+$ git clone https://github.com/chexagon/redis-session-manager.git
+$ cd redis-session-manager/
+$ mvn package
+$ ls target/redis-session-manager-with-dependencies-2.1.1-SNAPSHOT.jar 
+redis-session-manager-with-dependencies-2.1.1-SNAPSHOT.jar
+
+$ cp target/redis-session-manager-with-dependencies-2.1.1-SNAPSHOT.jar /srv/apache-tomcat/apache-tomcat-8.5.11/lib/
+如果Redis是 127.0.0.1 配置 conf/context.xml 加入下面一行，
+<Manager className="com.crimsonhexagon.rsm.redisson.SingleServerSessionManager" />			
+
+完整的配置
+    <Manager className="com.crimsonhexagon.rsm.redisson.SingleServerSessionManager"
+	    endpoint="localhost:6379"
+	    sessionKeyPrefix="JSESSIONID::"
+	    saveOnChange="false"
+	    forceSaveAfterRequest="false"
+	    dirtyOnMutation="false"
+	    ignorePattern=".*\\.(ico|png|gif|jpg|jpeg|swf|css|js)$"
+	    connectionPoolSize="100"
+	    database="16"
+	    password="yourpassword"
+	    timeout="60000"
+	    pingTimeout="1000"
+	    retryAttempts="20"
+	    retryInterval="1000"
+    />

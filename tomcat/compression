@@ -1,0 +1,11 @@
+压缩传送数据
+compression="on"
+compressionMinSize="2048"
+noCompressionUserAgents="gozilla, traviata"
+compressableMimeType="text/html,text/xml,text/plain,text/javascript,text/css"
+
+
+useBodyEncodingForURI
+如果你的站点编码非UTF-8,去掉URIEncoding="UTF-8"使用下面选项.
+
+useBodyEncodingForURI="true"
