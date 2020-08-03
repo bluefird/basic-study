@@ -1,0 +1,8 @@
+1.Nginx + Tomcat
+
+2： 需求拦截 index.html
+背景：网站推广审核需要隐藏或不现实首页，其他页面正常
+需求：要求访问首页事显示指定页面
+
+3. cookie 特殊处理 
+tomcat cookie 域穿透
