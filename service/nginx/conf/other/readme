@@ -1,0 +1,3 @@
+ssi_silent_errors 默认值是off，开启后在处理SSI文件出错时不输出错误提示:"[an error occurred while processing the directive] "
+ssi_types 默认是ssi_types text/html，如果需要shtml支持，则需要设置：ssi_types text/shtml
+ssi_value_length 默认值是 256，用于定义SSI参数的长度。

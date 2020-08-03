@@ -1,0 +1,36 @@
+需求如下
+原理地址：
+http://www.netkiller.cn/redirect/index.html?skuid=133
+
+目的地址：
+http://www.netkiller.cn/to/133.html
+注意：nginx rewrite 并不支持http get 参数处理，也就是说“?”之后的内容rewrite根部获取不到。
+下面的例子是行不通的
+rewrite ^/redirect/index\.html\?skuid=(\d+)$ /to/$1.html permanent ;
+我们需要通过正在查出参数，然后赋值一个变量，再将变量传递给rewrite。具体做法是：
+server {
+    listen       80;
+    server_name www.netkiller.cn;
+
+    #charset koi8-r;
+    access_log  /var/log/nginx/test.access.log  main;
+
+    location / {
+        root   /www/test;
+        index  index.html;
+
+		if ($request_uri ~* "^/redirect/index\.html\?skuid=([0-9]+)$") {
+                set $argv1 $1;
+                rewrite .* /to/$argv1.html? permanent;
+        }
+    }
+}
+测试结果
+[neo@netkiller conf.d]$ curl -I http://www.netkiller.cn/redirect/index.html?skuid=133
+HTTP/1.1 301 Moved Permanently
+Server: nginx
+Date: Tue, 12 Apr 2016 06:59:33 GMT
+Content-Type: text/html
+Content-Length: 178
+Location: http://www.netkiller.cn/to/133.html
+Connection: keep-alive

@@ -1,0 +1,16 @@
+需求
+去掉扩展名
+http://www.example.com/article/10	=>	http://www.example.com/article/10.html
+location / {
+    if (!-e $request_filename){
+        rewrite ^(.*)$ /$1.html last;
+        break;
+    }
+}
+添加扩展名
+原地址 http://ipfs.netkiller.cn/ipfs/QmcA1Fsrt6jGTVqAUNZBqaprMEdFaFkmkzA5s2M6mF85UC
+目标地址： http://ipfs.netkiller.cn/ipfs/QmcA1Fsrt6jGTVqAUNZBqaprMEdFaFkmkzA5s2M6mF85UC.mp4
+    location / {
+        rewrite ^/(.*)\.mp4$ /$1 last;
+        proxy_pass      http://127.0.0.1:8080;
+    }

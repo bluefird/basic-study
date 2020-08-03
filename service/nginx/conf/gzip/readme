@@ -1,0 +1,3 @@
+压缩静态图片、文件、json等，提高速率
+CDN支持
+配置 gzip_proxied any; 后CDN才能识别 gzip

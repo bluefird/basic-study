@@ -1,0 +1,4 @@
+$request_body 用于缓存
+因为nginx 使用 url 作为缓存的key ( Nginx 将url地址 md5后作为缓存的 key )，所以默认情况下 Nginx 只能处理 HTTP GET 缓存。
+对于 HTTP POST 请求，提交数据放在HTTP Head 头部提交到服务器的， 提交前后URL始终不变，Nginx 无法区分相同网址两次请求的内容有变化。
+但是我们可以自定义 缓存 key 例如： "$request_uri|$request_body" 我们将请求地址加上post内容作为缓存的key，这样nginx 便可以区分每次提交后的页面变化。

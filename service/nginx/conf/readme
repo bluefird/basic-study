@@ -1,0 +1,10 @@
+nginx 常见配置
+1：隐藏版本号
+http {
+...
+server_tokens off;
+...
+}
+2： gzip 支持CDN
+
+3： 支持 ssi文件

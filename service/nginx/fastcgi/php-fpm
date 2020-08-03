@@ -1,0 +1,77 @@
+安装
+sudo apt-get install php5-cli php5-cgi php5-fpm
+/etc/init.d/php5-fpm start
+编译：
+./configure --prefix=/srv/php-5.3.8 \
+--with-config-file-path=/srv/php-5.3.8/etc \
+--with-config-file-scan-dir=/srv/php-5.3.8/etc/conf.d \
+--enable-fpm \
+--with-fpm-user=www \
+--with-fpm-group=www \
+--with-pear \
+--with-curl \
+--with-gd \
+--with-jpeg-dir \
+--with-png-dir \
+--with-freetype-dir \
+--with-xpm-dir \
+--with-iconv \
+--with-mcrypt \
+--with-mhash \
+--with-zlib \
+--with-xmlrpc \
+--with-xsl \
+--with-openssl \
+--with-mysql=/srv/mysql-5.5.16-linux2.6-i686 \
+--with-mysqli=/srv/mysql-5.5.16-linux2.6-i686/bin/mysql_config \
+--with-pdo-mysql=/srv/mysql-5.5.16-linux2.6-i686 \
+--with-sqlite=shared \
+--with-pdo-sqlite=shared \
+--disable-debug \
+--enable-zip \
+--enable-sockets \
+--enable-soap \
+--enable-mbstring \
+--enable-magic-quotes \
+--enable-inline-optimization \
+--enable-gd-native-ttf \
+--enable-xml \
+--enable-ftp \
+--enable-exif \
+--enable-wddx \
+--enable-bcmath \
+--enable-calendar \
+--enable-sqlite-utf8 \
+--enable-shmop \
+--enable-dba \
+--enable-sysvsem \
+--enable-sysvshm \
+--enable-sysvmsg
+make && make install
+如果出现 fpm 编译错误，取消--with-mcrypt 可以编译成功。
+# cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
+# chmod 755 /etc/init.d/php-fpm
+# ln -s /srv/php-5.3.5 /srv/php
+# cp /srv/php/etc/php-fpm.conf.default /srv/php/etc/php-fpm.conf
+# cp php.ini-production /srv/php/etc/php.ini
+groupadd -g 80 www
+adduser -o --home /www --uid 80 --gid 80 -c "Web User" www
+
+php-fpm.conf
+
+# grep -v ';' /srv/php-5.3.5/etc/php-fpm.conf | grep -v "^$"
+[global]
+pid = run/php-fpm.pid
+error_log = log/php-fpm.log
+[www]
+listen = 127.0.0.1:9000
+user = www
+group = www
+pm = dynamic
+pm.max_children = 2048
+pm.start_servers = 20
+pm.min_spare_servers = 5
+pm.max_spare_servers = 35
+pm.max_requests = 500
+
+chkconfig --add php-fpm

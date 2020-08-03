@@ -1,0 +1,57 @@
+config php fastcgi
+sudo vim /etc/nginx/sites-available/default
+
+        location ~ \.php$ {
+                fastcgi_pass   127.0.0.1:9000;
+                fastcgi_index  index.php;
+                fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+                include fastcgi_params;
+        }
+Spawn-fcgi
+We still need a script to start our fast cgi processes. 
+We will extract one from Lighttpd. and then disable start script of lighttpd
+
+$ sudo apt-get install lighttpd
+$ sudo chmod -x /etc/init.d/lighttpd
+$ sudo touch /usr/bin/php-fastcgi
+$ sudo vim /usr/bin/php-fastcgi
+
+#!/bin/sh
+/usr/bin/spawn-fcgi -a 127.0.0.1 -p 9000 -u www-data -f /usr/bin/php5-cgi
+fastcgi daemon
+
+$ sudo touch /etc/init.d/nginx-fastcgi
+$ sudo chmod +x /usr/bin/php-fastcgi
+$ sudo vim /etc/init.d/nginx-fastcgi
+
+This is also a new empty file, add the following and save:
+
+#!/bin/bash
+PHP_SCRIPT=/usr/bin/php-fastcgi
+RETVAL=0
+case "$1" in
+start)
+$PHP_SCRIPT
+RETVAL=$?
+;;
+stop)
+killall -9 php
+RETVAL=$?
+;;
+restart)
+killall -9 php
+$PHP_SCRIPT
+RETVAL=$?
+;;
+*)
+echo "Usage: nginx-fastcgi {start|stop|restart}"
+exit 1
+;;
+esac
+exit $RETVAL
+
+We need to change some permissions to make this all work.
+$ sudo chmod +x /etc/init.d/nginx-fastcgi
+create a test file
+sudo vim /var/www/nginx-default/index.php
+<?php echo phpinfo(); ?>

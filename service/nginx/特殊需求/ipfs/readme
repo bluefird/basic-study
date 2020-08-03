@@ -1,0 +1,7 @@
+mkdir -p /var/cache/nginx/ipfs
+chown nginx:root /var/cache/nginx/ipfs
+
+查看缓存情况
+# find /var/cache/nginx/ipfs/
+/var/cache/nginx/ipfs/
+/var/cache/nginx/ipfs/47c3015c7a497f26f650a817f5a179ab		

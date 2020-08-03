@@ -1,0 +1,2 @@
+下面是一个通过 proxy_pass 代理live800的案例，我们需要处理几个地方：
+Host头处理，Cookie传递，替换原因页面中的域名，替换文件有html,css,xml,css,js

@@ -1,0 +1,47 @@
+创建自颁发证书，SSL有两种证书模式，单向认证和双向认证，下面是单向认证模式。
+mkdir /etc/nginx/ssl
+cd /etc/nginx/ssl
+openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout /etc/nginx/ssl/api.netkiller.cn.key -out /etc/nginx/ssl/api.netkiller.cn.crt
+
+注意: Common Name (eg, your name or your server's hostname) []:api.netkiller.cn 要跟你的 nginx server_name api.netkiller.cn 一样。
+CA
+    SSL 双向认证
+    touch /etc/pki/CA/index.txt
+    echo 00 > /etc/pki/CA/serial
+                    
+    制作 CA 私钥
+    openssl genrsa -out ca.key 2048
+
+    制作 CA 根证书（公钥）
+    openssl req -new -x509 -days 3650 -key ca.key -out ca.crt
+服务器端
+    服务器端证书
+    制作服务端私钥
+    openssl genrsa -out server.pem 2048
+    openssl rsa -in server.pem -out server.key
+
+    生成签发请求
+    openssl req -new -key server.pem -out server.csr	
+
+    用 CA 签发
+    openssl x509 -req -sha256 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -days 3650 -out server.crt
+客户端证书
+    openssl genrsa -des3 -out client.key 2048
+    openssl req -new -key client.key -out client.csr  
+
+    生成签发请求
+    openssl req -new -key server.pem -out server.csr	
+
+    用 CA 签发
+    openssl ca -in client.csr -cert ca.crt -keyfile ca.key -out client.crt -days 3650
+生成浏览器证书
+    openssl pkcs12 -export -inkey client.key -in client.crt -out client.pfx
+SOAP 证书
+    cat client.crt client.key > soap.pem
+
+	$header = array(		
+		'local_cert' => "soap.pem", //client.pem文件路径
+		'passphrase' => "passw0rd" //client证书密码
+		);
+	$client = new SoapClient(FILE_WSDL, $header);
+

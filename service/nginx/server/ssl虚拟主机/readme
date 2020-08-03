@@ -1,0 +1,5 @@
+#config test
+nginx -t
+
+443 port test
+openssl s_client -connect www.example.com:443

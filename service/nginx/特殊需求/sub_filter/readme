@@ -1,0 +1,7 @@
+通过 proxy 汉化 restful 接口返回的 json 字符串。
+背景，有这样一个需求，前端HTML5通过ajax与restful交互，ajax会显示接口返回json数据，
+由于js做了混淆无法修改与restful交互的逻辑，但是json反馈结果需要汉化。
+汉化前接口如下，返回message为 "message":"Full authentication is required to access this resource"
+
+建立一个代理服务器，代理介于用户和接口之间，ajax 访问接口需要经过这个代理服务器中转。
+增加 /etc/nginx/conf.d/api.netkiller.cn.conf 配置文件

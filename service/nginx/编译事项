@@ -1,0 +1,13 @@
+1： 关闭 debug，减少 nginx 大小
+
+解压缩后编辑auto/cc/gcc文件
+删除以下两行
+# debug
+CFLAGS="$CFLAGS -g"
+
+2： 安装依赖并创建nginx启动用户
+groupadd www
+useradd -M -g www -s /sbin/nologin www
+
+3: 添加编译参数 ： 按需添加
+./configure --user=www --group=www --prefix=/usr/local/nginx --with-http_stub_status_module
