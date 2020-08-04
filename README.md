@@ -1,4 +1,4 @@
 # basic-study
-nginx
-mysql
-tomcat
+## nginx
+## mysql
+## tomcat
